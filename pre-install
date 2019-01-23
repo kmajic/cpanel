@@ -1,0 +1,9 @@
+iptables-save > ~/firewall.rules
+systemctl stop firewalld.service; systemctl disable firewalld.service
+systemctl stop NetworkManager.service; systemctl disable NetworkManager.service
+
+echo "NM_CONTROLLED=no" | tee -a /etc/sysconfig/network-scripts/ifcfg-lo /etc/sysconfig/network-scripts/ifcfg-enp0s8
+
+systemctl enable network.service; systemctl start network.service
+
+cd /home && curl -o latest -L https://securedownloads.cpanel.net/latest && sh latest
